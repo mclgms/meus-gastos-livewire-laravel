@@ -10,7 +10,7 @@ class Feature extends Model
     use HasFactory;
 
     protected $fillable =[
-        'name', 'slug','type'
+        'name', 'slug','type','rule'
     ];
 
 

@@ -30,6 +30,9 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Referência
                             </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Ações
+                            </th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -56,6 +59,11 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{$plan->reference}}
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <button wire:click.prevent="openModal" class="px-6 py-2 border border-blue-900 bg-blue-600 rounded text-white font-bold" type="button">
+                                    Adicionar Feature
+                                </button>
+                            </td>
                         </tr>
                         @endforeach
                         </tbody>
@@ -64,4 +72,6 @@
             </div>
         </div>
     </div>
+
+        @include('livewire.plan.includes.modal')
 </div>
