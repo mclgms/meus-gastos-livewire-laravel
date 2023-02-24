@@ -19,7 +19,7 @@ class SubscriptionService
     public function makeSubscription()
     {
         //TODO: usar Credencials
-        $url = Credencials::getCredencials('/pre-aprovals');
+        $url = Credencials::getCredencials('/pre-approvals');
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Accept' => 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
@@ -83,6 +83,7 @@ class SubscriptionService
                     ]
                 ]
             ]);
+        dd($response);
         return $response->json();
     }
 }

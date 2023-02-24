@@ -2,50 +2,42 @@
 
 namespace App\Http\Livewire\Expense;
 
+use App\Traits\Subscription\SubscriptionTrait;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class ExpenseCreate extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, SubscriptionTrait;
 
-    public $amount;
-    public $description;
-    public $type;
-    public $photo;
-    public $expenseDate;
+    public $expense = [];
 
     protected $rules = [
-        'description' => 'required',
-        'amount' => 'required',
-        'type' => 'required',
-        'photo' => 'image|nullable'
+        'expense.description' => 'required',
+        'expense.amount' => 'required',
+        'expense.type' => 'required',
+        'expense.photo' => 'image|nullable'
     ];
 
     public function render()
     {
-        return view('livewire.expense.expense-create');
+        return view('livewire.expense.expense-create')
+            ->with('viewFeatures', $this->loadFeaturesByUserPlan('view'));
     }
 
     public function createExpense()
     {
         $this->validate();
 
-        if ($this->photo) {
-            $this->photo = $this->photo->store('expenses-photos', 'public');
+        if (isset($this->expense['photo']) && $this->expense['photo']) {
+            $this->expense['photo'] = $this->expense['photo']->store('expenses-photos', 'public');
         }
 
-        auth()->user()->expenses()->create([
-            'description' => $this->description,
-            'amount' => $this->amount,
-            'type' => $this->type,
-            'user_id' => auth()->user()->id,
-            'photo' => $this->photo ?? null,
-            'expense_date' => $this->expenseDate
-        ]);
+        $this->expense['photo'] = $this->expense['photo'] ?? null;
+        auth()->user()->expenses()->create($this->expense);
+
         session()->flash('message', 'Registro salvo com sucesso');
-        $this->description = $this->amount =
-            $this->type = $this->photo = $this->expenseDate = NULL;
+        $this->reset('expense');
 
     }
 }

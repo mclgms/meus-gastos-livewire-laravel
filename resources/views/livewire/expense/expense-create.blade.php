@@ -10,9 +10,9 @@
             <input
                 type="text"
                 name="description"
-                wire:model="description"
-                class="block appearance-none w-full bg-gray-200 border @error('description') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-            @error('description')
+                wire:model="expense.description"
+                class="block appearance-none w-full bg-gray-200 border @error('expense.description') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+            @error('expense.description')
         <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
         @enderror
         </p>
@@ -22,21 +22,21 @@
             <input
                 type="text"
                 name="amount"
-                wire:model="amount"
-                class="block appearance-none w-full bg-gray-200 border @error('description') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-            @error('amount')
+                wire:model="expense.amount"
+                class="block appearance-none w-full bg-gray-200 border @error('expense.description') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+            @error('expense.amount')
         <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
         @enderror
         </p>
         <p class="w-full px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Tipo</label>
-            <select wire:model="type" name="type" id=""
-                    class="block appearance-none w-full bg-gray-200 border @error('type') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">>
+            <select wire:model="expense.type" name="type" id=""
+                    class="block appearance-none w-full bg-gray-200 border @error('expense.type') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">>
                 <option value="">Selecione</option>
                 <option value="1">Entrada</option>
                 <option value="2">Saída</option>
             </select>
-            @error('type')
+            @error('expense.type')
                 <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
             @enderror
         </p>
@@ -47,19 +47,19 @@
             </label>
             <input
                 type="file"
-                name="amount"
-                wire:model="photo"
+                name="photo"
+                wire:model="expense.photo"
                 class="block appearance-none w-full bg-gray-200 border @error('photo') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
-            @error('photo')
+            @error('expense.photo')
                 <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
             @enderror
 
-            @if($photo)
+            @if(isset($expense['photo']) && $expense['photo'])
             <img
                 width="500"
                 height="500"
-                src="{{$photo->temporaryUrl()}}" alt="{{$description}}">
+                src="{{$expense['photo']->temporaryUrl()}}" alt="">
         @endif
         </p>
         <p class="w-full px-3 mb-6 md:mb-0">
@@ -67,10 +67,13 @@
             <input
                 type="text"
                 name="expanse_date"
-                wire:model="expenseDate"
+                wire:model="expense.expenseDate"
                 class="block appearance-none w-full bg-gray-200 border @error('expense_date') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
         </p>
 
+        @foreach($viewFeatures as $feature)
+            @include('plan-features.'.'categories')
+        @endforeach
 
         <div class="w-full py-4 px-3 mb-6 md:mb-0">
             <button type="submit"

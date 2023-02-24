@@ -32,7 +32,8 @@ class CreditCard extends Component
 
     public function proccessSubscription($payload)
     {
-        $payload['plan_reference'] = '';
+        $payload['plan_reference'] = '997151CFCACA587EE4AC3F824C60F580';
+        var_dump($payload);
         $makeSubscription = (new SubscriptionService($payload))->makeSubscription();
         dd($makeSubscription);
     }

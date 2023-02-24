@@ -9,9 +9,16 @@ class Feature extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
-        'name', 'slug','type','rule'
+    protected $fillable = [
+        'name', 'slug', 'type', 'rule'
     ];
+
+    protected function rule(): Attribute
+    {
+        return Attribute::make(
+            get: fn(string $value) => json_decode($value,2)
+        );
+    }
 
 
     public function plan()

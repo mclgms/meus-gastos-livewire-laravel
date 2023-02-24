@@ -60,7 +60,7 @@
                                 {{$plan->reference}}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <button wire:click.prevent="openModal" class="px-6 py-2 border border-blue-900 bg-blue-600 rounded text-white font-bold" type="button">
+                                <button wire:click.prevent="openModal({{$plan->id}})" class="px-6 py-2 border border-blue-900 bg-blue-600 rounded text-white font-bold" type="button">
                                     Adicionar Feature
                                 </button>
                             </td>

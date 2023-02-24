@@ -7,15 +7,22 @@ use Livewire\Component;
 
 class PlanList extends Component
 {
+    protected $listeners = [
+        'closeModal'
+    ];
     public $showModal = false;
 
-    public function openModal()
+    public function openModal($planId)
     {
+        $this->emit('openModal',$planId);
         $this->showModal = true;
     }
 
-    public function closeModal()
+    public function closeModal($message)
     {
+        if ($message) {
+            session()->flash('message','Feature adicionada com sucesso');
+        }
         $this->showModal = false;
     }
 

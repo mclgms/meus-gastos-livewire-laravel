@@ -12,4 +12,9 @@ class Category extends Model
     protected $fillable = [
         'name', 'slug'
     ];
+
+    public function expenses()
+    {
+        return $this->belongsToMany(Expense::class);
+    }
 }
