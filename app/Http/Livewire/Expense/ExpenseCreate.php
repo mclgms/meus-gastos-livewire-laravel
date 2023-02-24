@@ -34,7 +34,11 @@ class ExpenseCreate extends Component
         }
 
         $this->expense['photo'] = $this->expense['photo'] ?? null;
-        auth()->user()->expenses()->create($this->expense);
+        $expense = auth()->user()->expenses()->create($this->expense);
+        if (isset($this->expense['categories']) && count($this->expense['categories'])) {
+            $expense->categories()->sync($this->expense['categories']);
+        }
+
 
         session()->flash('message', 'Registro salvo com sucesso');
         $this->reset('expense');

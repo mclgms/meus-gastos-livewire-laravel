@@ -75,10 +75,13 @@
             @include('plan-features.'.'categories')
         @endforeach
 
-        <div class="w-full py-4 px-3 mb-6 md:mb-0">
+        <div class="w-full py-4 px-3 mb-10 md:mb-10">
             <button type="submit"
                     class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
             >Criar Registro</button>
+            <a href="{{route('expenses.index')}}" class="flex-shrink-0 bg-white hover:bg-gray-100 border-gray-300 hover:border-gray-100 text-sm border-4 text-black py-1 px-2 rounded">
+                Voltar
+            </a>
         </div>
     </form>
 
