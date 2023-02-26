@@ -27,7 +27,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('expenses')->name('expenses.')->group(function () {
 
-        Route::get('/create', App\Http\Livewire\Expense\ExpenseCreate::class)->name('create');
+        Route::get('/create', App\Http\Livewire\Expense\ExpenseCreate::class)
+            ->middleware('check-amount-expense')
+            ->name('create');
         Route::get('/edit/{expense}', App\Http\Livewire\Expense\ExpenseEdit::class)->name('edit');
         Route::get('/list', App\Http\Livewire\Expense\ExpenseList::class)->name('index');
 

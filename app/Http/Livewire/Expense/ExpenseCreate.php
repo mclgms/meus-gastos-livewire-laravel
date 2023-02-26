@@ -11,6 +11,7 @@ class ExpenseCreate extends Component
     use WithFileUploads, SubscriptionTrait;
 
     public $expense = [];
+    public $categories = [];
 
     protected $rules = [
         'expense.description' => 'required',
@@ -35,13 +36,13 @@ class ExpenseCreate extends Component
 
         $this->expense['photo'] = $this->expense['photo'] ?? null;
         $expense = auth()->user()->expenses()->create($this->expense);
-        if (isset($this->expense['categories']) && count($this->expense['categories'])) {
-            $expense->categories()->sync($this->expense['categories']);
+        if (count($this->categories)) {
+            $expense->categories()->sync($this->categories);
         }
 
 
         session()->flash('message', 'Registro salvo com sucesso');
-        $this->reset('expense');
+        $this->reset('expense','categories');
 
     }
 }

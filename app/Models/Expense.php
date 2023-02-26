@@ -31,6 +31,11 @@ class Expense extends Model
         return $this->attributes['expense_date'] = (\DateTime::createFromFormat('d/m/Y H:i:s',$prop))->format('Y-m-d H:i:s');
     }
 
+    public function getCategoriesArrAttribute()
+    {
+        return $this->categories->pluck('id')->toArray();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -56,12 +56,13 @@
             @enderror
         </p>
 
-        <div class="w-full py-4 px-3 mb-6 md:mb-0">
+        @if(isset($expense['photo']) && $expense['photo'])        <div class="w-full py-4 px-3 mb-6 md:mb-0">
             <img
                 width="500"
                 height="500"
                 src="{{route('expenses.photo',$expense->id)}}" alt="{{$description}}">
         </div>
+        @endif
 
         <p class="w-full px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Data Registro</label>
@@ -73,12 +74,20 @@
             @error('expense_date')
              <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
             @enderror
+
+
+        @foreach($viewFeatures as $feature)
+        @include('plan-features.'.'categories')
+        @endforeach
+
        </p>
+
 
         <div class="w-full py-4 px-3 mb-6 md:mb-0">
             <button type="submit"
                     class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
             >Salvar Registro</button>
+            <a href="javascript:history.back()" class="flex-shrink-0 bg-gray-100 hover:bg-gray-200 border-gray-200 hover:border-gray-300 text-sm border-4 text-black py-1 px-2 rounded">Voltar</a>
         </div>
     </form>
 
