@@ -18,7 +18,8 @@ class CheckUserHasAValidSubscription
     {
         $userPlan = auth()->user()->plan();
         if (!$userPlan->exists()) {
-            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
             return redirect()->route('login');
         }
         //return $next($request);
