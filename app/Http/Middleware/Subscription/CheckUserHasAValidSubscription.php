@@ -21,6 +21,7 @@ class CheckUserHasAValidSubscription
             Auth::logout();
             return redirect()->route('login');
         }
-        return $next($request);
+        //return $next($request);
+        return redirect()->route('dashboard');
     }
 }
