@@ -11,13 +11,62 @@
 
     @include('includes.message')
 
+    <div class="flex my-5 mb-4">
+        <div class="take w-2/6">
+            <span>Página</span>
+            <select name="amount" id="amount" wire:model="take" class="border border-gray-300 rounded h-10 w-3/4 focus:border-gray-300 py-2 px-4">
+                <option value="">Carregar Todos</option>
+                <option value="10">10 por página</option>
+                <option value="30">30 por páginaEntrada</option>
+            </select>
+        </div>
+        <div class="type w-2/6">
+            <span>Por tipo :</span>
+            <select name="type" id="type" wire:model="type" class="border border-gray-300 rounded h-10 w-3/4 focus:border-gray-300 py-2 px-4">
+                <option value="">Todos</option>
+                <option value="1">Entrada</option>
+                <option value="2">Saída</option>
+            </select>
+        </div>
+        <div class="search w-2/6">
+            <span>Buscar</span>
+            <input type="text" wire:model="search"
+                   class="border border-gray-300 rounded h-10 w-3/4 focus:border-gray-300 p-3"
+                   placeholder="Encontre na tabela..."
+            >
+        </div>
+    </div>
+
     <table class="table-auto w-full mx-auto">
         <thead>
         <tr class="text-left">
-            <th class="px-4 py-2">#</th>
-            <th class="px-4 py-2">Descrição</th>
-            <th class="px-4 py-2">Valor</th>
-            <th class="px-4 py-2">Data Registro</th>
+            <th class="px-4 py-2">
+                <button wire:click="changeOrder('id')">
+                    #
+                    @if($orderByField == 'id')
+                    {!! $orderBy == 'DESC' ? '&uarr;' : '&darr;' !!}
+                    @endif
+                </button>
+            </th>
+            <th class="px-4 py-2">
+                Descrição
+            </th>
+            <th class="px-4 py-2">
+                <button wire:click="changeOrder('amount')">
+                    Valor
+                    @if($orderByField == 'amount')
+                        {!! $orderBy == 'DESC' ? '&uarr;' : '&darr;' !!}
+                    @endif
+                </button>
+            </th>
+            <th class="px-4 py-2">
+                <button wire:click="changeOrder('created_at')">
+                    Data Registro
+                    @if($orderByField == 'created_at')
+                        {!! $orderBy == 'DESC' ? '&uarr;' : '&darr;' !!}
+                    @endif
+                </button>
+            </th>
             <th class="px-4 py-2">Ações</th>
         </tr>
         </thead>
@@ -54,12 +103,8 @@
         </tbody>
     </table>
     <div class="w-full mx-auto mt-10">
-        @if(count($expenses))
-            {{$expenses->links()}}
-        @else
-        <div class="text-center">
-            <span class="md:text-2xl">Nenhum registro encontrado.</span>
-        </div>
+        @if($take)
+            {{ $expenses->links() }}
         @endif
     </div>
 
