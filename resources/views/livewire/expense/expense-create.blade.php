@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto py-15 px-4">
+<div class="max-w-7xl mx-auto py-15 px-4" x-data>
     <navigation-menu/>
     <x-slot name="header">
         <h2>Criar uma Receita/Despesa</h2>
@@ -69,6 +69,7 @@
                 name="expense_date"
                 id="expense_date"
                 wire:model="expense.expenseDate"
+                x-mask="99/99/9999"
                 class="block appearance-none w-full bg-gray-200 border @error('expense_date') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
         </p>
 
@@ -78,7 +79,6 @@
 
         <div class="w-full py-4 px-3 mb-10 md:mb-10">
             <button type="submit"
-                    wire:loading.attr="disabled"
                     class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded disabled:opacity-25"
             >Criar Registro</button>
             <a href="{{route('expenses.index')}}" class="flex-shrink-0 bg-white hover:bg-gray-100 border-gray-300 hover:border-gray-100 text-sm border-4 text-black py-1 px-2 rounded">
@@ -90,12 +90,5 @@
         </div>
     </form>
 
-    @push('scripts')
-    <script>
-        elDateInput = document.querySelector('#expense_date');
-        let im = new Inputmask('99/99/9999');
-        im.mask(elDateInput);
-    </script>
-    @endpush
 </div>
 
