@@ -20,6 +20,11 @@ class ExpenseCreate extends Component
         'expense.photo' => 'image|nullable'
     ];
 
+    public function updated($propName, $value)
+    {
+        $this->validateOnly($propName);
+    }
+
     public function render()
     {
         return view('livewire.expense.expense-create')

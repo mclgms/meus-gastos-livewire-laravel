@@ -21,7 +21,7 @@ trait SubscriptionTrait
         $amountFeature = $this->loadFeaturesByUserPlan('amount');
         // realizar checagem de quantidade
         $amount = auth()->user()->expenses->count();
-        return $amount >= 10;
+        return $amount >= 10000;
     }
 
 }

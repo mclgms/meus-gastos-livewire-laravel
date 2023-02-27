@@ -4,13 +4,14 @@ namespace App\Http\Livewire\Expense;
 
 use App\Models\Expense;
 use App\Traits\Subscription\SubscriptionTrait;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class ExpenseEdit extends Component
 {
-    use WithFileUploads, SubscriptionTrait;
+    use WithFileUploads, SubscriptionTrait, AuthorizesRequests;
 
     protected $rules = [
         'description' => 'required',
@@ -38,6 +39,8 @@ class ExpenseEdit extends Component
 
     public function render()
     {
+        $this->authorize('check.user.can.edit.expense', $this->expense);
+
         return view('livewire.expense.expense-edit')
             ->with('viewFeatures', $this->loadFeaturesByUserPlan('view'));
     }

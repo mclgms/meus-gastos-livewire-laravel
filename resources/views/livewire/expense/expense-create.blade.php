@@ -23,7 +23,7 @@
                 type="text"
                 name="amount"
                 wire:model="expense.amount"
-                class="block appearance-none w-full bg-gray-200 border @error('expense.description') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+                class="block appearance-none w-full bg-gray-200 border @error('expense.amount') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
             @error('expense.amount')
         <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
         @enderror
@@ -49,24 +49,25 @@
                 type="file"
                 name="photo"
                 wire:model="expense.photo"
-                class="block appearance-none w-full bg-gray-200 border @error('photo') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+                class="block appearance-none w-full bg-gray-200 border @error('expense.photo') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
 
-            @error('expense.photo')
-                <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
-            @enderror
 
-            @if(isset($expense['photo']) && $expense['photo'])
+            @if(isset($expense['photo']) && $expense['photo'] && !$errors->has('expense.photo'))
             <img
                 width="500"
                 height="500"
                 src="{{$expense['photo']->temporaryUrl()}}" alt="">
         @endif
+            @error('expense.photo')
+                <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
+            @enderror
         </p>
         <p class="w-full px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Data Registro</label>
             <input
                 type="text"
-                name="expanse_date"
+                name="expense_date"
+                id="expense_date"
                 wire:model="expense.expenseDate"
                 class="block appearance-none w-full bg-gray-200 border @error('expense_date') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
         </p>
@@ -77,14 +78,24 @@
 
         <div class="w-full py-4 px-3 mb-10 md:mb-10">
             <button type="submit"
-                    class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+                    wire:loading.attr="disabled"
+                    class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded disabled:opacity-25"
             >Criar Registro</button>
             <a href="{{route('expenses.index')}}" class="flex-shrink-0 bg-white hover:bg-gray-100 border-gray-300 hover:border-gray-100 text-sm border-4 text-black py-1 px-2 rounded">
                 Voltar
             </a>
+            <div wire:loading wire:target="createExpense">
+                Salvando dados...
+            </div>
         </div>
     </form>
 
-
+    @push('scripts')
+    <script>
+        elDateInput = document.querySelector('#expense_date');
+        let im = new Inputmask('99/99/9999');
+        im.mask(elDateInput);
+    </script>
+    @endpush
 </div>
 

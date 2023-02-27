@@ -10,7 +10,8 @@ use \App\Http\Livewire\Plan\PlanCreate;
 use \App\Http\Livewire\Payment\CreditCard;
 
 Route::get('/', function () {
-    return view('welcome');
+    $plans = \App\Models\Plan::all();
+    return view('welcome', compact('plans'));
 });
 
 Route::middleware([

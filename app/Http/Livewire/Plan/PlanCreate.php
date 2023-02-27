@@ -2,13 +2,15 @@
 
 namespace App\Http\Livewire\Plan;
 
-use App\Services\PagSeguro\Plan\PlanCreateService;
-use Livewire\Component;
 use App\Models\Plan;
-use Illuminate\Support\Facades\Http;
+use App\Services\PagSeguro\Plan\PlanCreateService;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Component;
 
 class PlanCreate extends Component
 {
+    use AuthorizesRequests;
+
     public array $plan = [];
 
     protected $rules = [
@@ -40,6 +42,7 @@ class PlanCreate extends Component
 
     public function render()
     {
+        $this->authorize('check.user.is.admin');
         return view('livewire.plan.plan-create');
     }
 

@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Plan;
 
 use App\Models\Plan;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class PlanList extends Component
 {
+    use AuthorizesRequests;
+
     protected $listeners = [
         'closeModal'
     ];
@@ -29,6 +32,8 @@ class PlanList extends Component
 
     public function render()
     {
+        $this->authorize('check.user.is.admin');
+
         $plans = Plan::all();
         return view('livewire.plan.plan-list',
             compact('plans'));
