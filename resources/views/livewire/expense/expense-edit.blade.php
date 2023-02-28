@@ -22,7 +22,6 @@
             <input
                 type="text"
                 name="amout"
-                x-mask:dynamic="$money($input, '.', ' ')"
                 wire:model="amount"
                 class="block appearance-none w-full bg-gray-200 border @error('description') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
             @error('amount')

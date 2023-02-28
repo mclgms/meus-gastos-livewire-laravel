@@ -31,7 +31,8 @@ class ExpenseEdit extends Component
     public function mount()
     {
         $this->description = $this->expense->description;
-        $this->amount = $this->expense->amount;
+        $this->amount = number_format($this->expense->amount,2,',','.');
+        //$this->amount = $this->expense->amount;
         $this->type = $this->expense->type;
         $this->expense_date = $this->expense->expense_date  ? Expense::formatExpenseDateBR($this->expense->expense_date) : '';
         $this->categories = $this->expense->categoriesArr;

@@ -51,7 +51,7 @@
             <th class="px-4 py-2">
                 Descrição
             </th>
-            <th class="px-4 py-2">
+            <th class="px-4 py-2" align="right">
                 <button wire:click="changeOrder('amount')">
                     Valor
                     @if($orderByField == 'amount')
@@ -75,9 +75,9 @@
         <tr>
             <td class="px-4 py-2 border"> {{$exp->id}}</td>
             <td class="px-4 py-2 border">{{$exp->description}}</td>
-            <td class="px-4 py-2 border">
+            <td class="px-4 py-2 border" align="right">
                 <span class="{{ $exp->type === 1 ? 'text-green-700' : 'text-red-900'}}">
-                    {{ $exp->type == 1 ? '' : '-' }}
+                   R$ {{ $exp->type == 1 ? '' : '-' }}
                     {{number_format($exp->amount,2,',','.')}}
                 </span>
             </td>
