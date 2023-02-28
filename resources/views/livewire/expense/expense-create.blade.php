@@ -42,6 +42,25 @@
         </p>
 
         <p class="w-full px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Data Registro</label>
+            <input
+                type="text"
+                name="expense_date"
+                id="expense_date"
+                wire:model="expense.expense_date"
+                x-mask="99/99/9999 99:99:99"
+                placeholder="00/00/0000 00:00:00"
+                class="block appearance-none w-full bg-gray-200 border @error('expense_date') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+
+            @foreach($viewFeatures as $feature)
+            @include('plan-features.'.'categories')
+            @endforeach
+
+        </p>
+
+
+
+        <p class="w-full px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Foto comprovante
             </label>
@@ -62,20 +81,6 @@
                 <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
             @enderror
         </p>
-        <p class="w-full px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Data Registro</label>
-            <input
-                type="text"
-                name="expense_date"
-                id="expense_date"
-                wire:model="expense.expenseDate"
-                x-mask="99/99/9999"
-                class="block appearance-none w-full bg-gray-200 border @error('expense_date') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-        </p>
-
-        @foreach($viewFeatures as $feature)
-            @include('plan-features.'.'categories')
-        @endforeach
 
         <div class="w-full py-4 px-3 mb-10 md:mb-10">
             <button type="submit"

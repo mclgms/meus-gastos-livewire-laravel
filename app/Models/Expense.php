@@ -28,7 +28,8 @@ class Expense extends Model
 
     public function setExpenseDateAttribute($prop)
     {
-        return $this->attributes['expense_date'] = (\DateTime::createFromFormat('d/m/Y H:i:s',$prop))->format('Y-m-d H:i:s');
+        $res = $this->attributes['expense_date'] = (\DateTime::createFromFormat('d/m/Y H:i:s',$prop))->format('Y-m-d H:i:s');
+        return $res;
     }
 
     public function getCategoriesArrAttribute()
@@ -44,5 +45,42 @@ class Expense extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * Formata uma data para o Banco de dados
+     * d/m/Y H:i:s para Y-m-d H:i:s
+     * @param $date d/m/Y H:i:s
+     * @return string Y-m-d H:i:s
+     */
+    public static function formatExpenseDateUS($date)
+    {
+        $arr = explode(" ", $date);
+        $d = explode("/", $arr[0]);
+
+        $dia = $d[0];
+        $mes = $d[1];
+        $ano = $d[2];
+
+        return $ano . '-' . $mes . '-' . $dia . ' ' . $arr[1];
+    }
+
+    /**
+     * Formata uma data US para BR
+     *
+     * @param $date Y-m-d H:i:s
+     * @return string d/m/Y H:i:s
+     */
+    public static function formatExpenseDateBR($date)
+    {
+        $arr = explode(" ", $date);
+        $d = explode("-", $arr[0]);
+
+        $dia = $d[2];
+        $mes = $d[1];
+        $ano = $d[0];
+
+        $res = $dia . '/' . $mes . '/' . $ano . ' ' . $arr[1];
+        return $res;
     }
 }

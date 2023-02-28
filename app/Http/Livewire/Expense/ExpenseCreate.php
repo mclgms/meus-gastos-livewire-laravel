@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Expense;
 
+use App\Models\Expense;
 use App\Traits\Subscription\SubscriptionTrait;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -38,7 +39,7 @@ class ExpenseCreate extends Component
         if (isset($this->expense['photo']) && $this->expense['photo']) {
             $this->expense['photo'] = $this->expense['photo']->store('expenses-photos', 'public');
         }
-
+        //$this->expense['expense_date'] = Expense::formatExpenseDateUS($this->expense['expense_date']);
         $this->expense['photo'] = $this->expense['photo'] ?? null;
         $expense = auth()->user()->expenses()->create($this->expense);
         if (count($this->categories)) {

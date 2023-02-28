@@ -26,14 +26,14 @@ class ExpenseEdit extends Component
     public $amount = '';
     public $type = '';
     public $photo;
-    public $expenseDate;
+    public $expense_date;
 
     public function mount()
     {
         $this->description = $this->expense->description;
         $this->amount = $this->expense->amount;
         $this->type = $this->expense->type;
-        $this->expense_date = $this->expense->expense_date;
+        $this->expense_date = $this->expense->expense_date  ? Expense::formatExpenseDateBR($this->expense->expense_date) : '';
         $this->categories = $this->expense->categoriesArr;
     }
 
@@ -61,7 +61,8 @@ class ExpenseEdit extends Component
             'description' => $this->description,
             'amount' => $this->amount,
             'type' => $this->type,
-            'photo'=> $this->photo ?? $this->expense->photo
+            'photo'=> $this->photo ?? $this->expense->photo,
+            'expense_date'=>$this->expense_date
         ]);
         if (count($this->categories)) {
             $this->expense->categories()->sync($this->categories);
